@@ -1,0 +1,22 @@
+deptrac:
+  paths:
+    - ./app
+  layers:
+    - name: Domain
+      collectors:
+        - type: class
+          value: ^App\\Domains\\.*
+    - name: AppNamespace
+      collectors:
+        - type: bool
+          must:
+            - type: class
+              value: ^App\\.*
+          must_not:
+            - type: layer
+              layer: Domain
+  ruleset:
+    Domain:
+      - AppNamespace
+    AppNamespace:
+      - Domain
